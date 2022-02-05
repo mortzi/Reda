@@ -14,7 +14,7 @@ public class OrderTests
         var order = new Order(orderId, new List<Product>());
 
         // assert
-        Assert.Equal(orderId, order.OrderId);
+        Assert.Equal(orderId, order.Id);
         Assert.Empty(order.Products);
     }
     
@@ -102,6 +102,6 @@ public class OrderTests
 
         // assert
         Assert.Equal(expectedWidth, order.Package.Width);
-        Assert.Equal(expectedWidth, order.RequiredWidth);
+        Assert.Equal(expectedWidth, order.RequiredBinWidth);
     }
 }

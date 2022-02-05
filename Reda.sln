@@ -11,6 +11,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{469CFFB9-B
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reda.Domain.Tests", "test\Reda.Domain.Tests\Reda.Domain.Tests.csproj", "{23316086-A175-470A-B9F4-3BEF618D214B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reda.Application", "src\Reda.Application\Reda.Application.csproj", "{B6FA8A41-230E-4245-86D1-F3389231E3F5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reda.Application.Tests", "test\Reda.Application.Tests\Reda.Application.Tests.csproj", "{8EA31B9E-6A52-43A3-A93B-4B1E466D53EB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -28,9 +32,19 @@ Global
 		{23316086-A175-470A-B9F4-3BEF618D214B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{23316086-A175-470A-B9F4-3BEF618D214B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{23316086-A175-470A-B9F4-3BEF618D214B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B6FA8A41-230E-4245-86D1-F3389231E3F5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B6FA8A41-230E-4245-86D1-F3389231E3F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B6FA8A41-230E-4245-86D1-F3389231E3F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B6FA8A41-230E-4245-86D1-F3389231E3F5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8EA31B9E-6A52-43A3-A93B-4B1E466D53EB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8EA31B9E-6A52-43A3-A93B-4B1E466D53EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8EA31B9E-6A52-43A3-A93B-4B1E466D53EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8EA31B9E-6A52-43A3-A93B-4B1E466D53EB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{E28B488D-0552-4DC6-B99F-5037F2D0FB43} = {CC50FFBC-C15C-44E6-8AD7-F10EB09FD7F4}
 		{23316086-A175-470A-B9F4-3BEF618D214B} = {469CFFB9-B24C-44E1-82BB-16CAD96CEC10}
+		{B6FA8A41-230E-4245-86D1-F3389231E3F5} = {CC50FFBC-C15C-44E6-8AD7-F10EB09FD7F4}
+		{8EA31B9E-6A52-43A3-A93B-4B1E466D53EB} = {469CFFB9-B24C-44E1-82BB-16CAD96CEC10}
 	EndGlobalSection
 EndGlobal

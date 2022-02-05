@@ -10,7 +10,7 @@ public class Order
     /// <summary>
     /// Unique Id for Order
     /// </summary>
-    public OrderId OrderId { get; }
+    public OrderId Id { get; }
     
     /// <summary>
     /// List of <see cref="Product"/> items
@@ -25,11 +25,11 @@ public class Order
     /// <summary>
     /// The width of the <see cref="Package"/> that this Order package occupies in shelf
     /// </summary>
-    public Width RequiredWidth => Package.Width;
+    public Width RequiredBinWidth => Package.Width;
     
-    public Order(OrderId orderId, IEnumerable<Product> products)
+    public Order(OrderId id, IEnumerable<Product> products)
     {
-        OrderId = orderId;
+        Id = id;
         _products = products.ToList();
         Package = new Package(_products);
     }
