@@ -8,6 +8,7 @@
         <PackageReference Update="AutoMapper" Version="11.0.0" />
         <PackageReference Update="Moq" Version="4.16.1"/>
         <PackageReference Update="System.Linq.Async" Version="6.0.1"/>
+        <PackageReference Update="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.1" />
         
         <PackageReference Update="Microsoft.NET.Test.Sdk" Version="16.11.0" />
         <PackageReference Update="xunit" Version="2.4.1" />
