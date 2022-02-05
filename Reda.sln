@@ -3,6 +3,14 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30114.105
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{CC50FFBC-C15C-44E6-8AD7-F10EB09FD7F4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reda.Domain", "src\Reda.Domain\Reda.Domain.csproj", "{E28B488D-0552-4DC6-B99F-5037F2D0FB43}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{469CFFB9-B24C-44E1-82BB-16CAD96CEC10}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reda.Domain.Tests", "test\Reda.Domain.Tests\Reda.Domain.Tests.csproj", "{23316086-A175-470A-B9F4-3BEF618D214B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +20,17 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E28B488D-0552-4DC6-B99F-5037F2D0FB43}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E28B488D-0552-4DC6-B99F-5037F2D0FB43}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E28B488D-0552-4DC6-B99F-5037F2D0FB43}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E28B488D-0552-4DC6-B99F-5037F2D0FB43}.Release|Any CPU.Build.0 = Release|Any CPU
+		{23316086-A175-470A-B9F4-3BEF618D214B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{23316086-A175-470A-B9F4-3BEF618D214B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{23316086-A175-470A-B9F4-3BEF618D214B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{23316086-A175-470A-B9F4-3BEF618D214B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{E28B488D-0552-4DC6-B99F-5037F2D0FB43} = {CC50FFBC-C15C-44E6-8AD7-F10EB09FD7F4}
+		{23316086-A175-470A-B9F4-3BEF618D214B} = {469CFFB9-B24C-44E1-82BB-16CAD96CEC10}
 	EndGlobalSection
 EndGlobal
