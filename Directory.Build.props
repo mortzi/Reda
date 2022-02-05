@@ -1,0 +1,10 @@
+<Project>
+    <PropertyGroup>
+        <LangVersion>latest</LangVersion>
+        <AssemblyName>$(MSBuildProjectName)</AssemblyName>
+        <RootNamespace>$(MSBuildProjectName)</RootNamespace>
+        <Version>0.0.1</Version>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+    </PropertyGroup>
+</Project>
