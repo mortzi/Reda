@@ -30,7 +30,7 @@ public class GetOrderHandlerTests
 
         var expected = new GetOrderResponse(
             orderId,
-            new List<ProductResponse> {new("candle", 2)},
+            new List<ProductResponse> {new(Guid.NewGuid(), "candle", 2)},
             1.2 * 2);
 
         var handler = new GetOrderHandler(orderRepository.Object);
@@ -41,7 +41,11 @@ public class GetOrderHandlerTests
         // assert
         Assert.Equal(expected.OrderId, actual.OrderId);
         Assert.Equal(expected.RequiredBinWidth, actual.RequiredBinWidth);
-        Assert.Equal(expected.Products, actual.Products);
+        
+        // do not compare product ids
+        Assert.Equal(
+            expected.Products.Select(p => new {p.Quantity, p.ProductType}),
+            actual.Products.Select(p => new {p.Quantity, p.ProductType}));
     }
     
     [Fact]

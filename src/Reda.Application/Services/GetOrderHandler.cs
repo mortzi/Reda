@@ -26,7 +26,7 @@ public class GetOrderHandler : IRequestHandler<GetOrderRequest, GetOrderResponse
         }
 
         var productResponses = order.Products
-            .Select(p => new ProductResponse(p.Type.Name, p.Quantity))
+            .Select(p => new ProductResponse(p.ProductId, p.Type.Name, p.Quantity))
             .ToList();
         
         return new GetOrderResponse(order.Id, productResponses, order.RequiredBinWidth);
