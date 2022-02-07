@@ -22,5 +22,6 @@ A try to domain driven approach.
 - MediatR
 - EntityFramework
 - AutoMapper
+- FluentValidation
 - xunit
 - Moq
