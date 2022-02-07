@@ -61,6 +61,45 @@ public class SubmitOrderHandlerTests
     }
     
     [Fact]
+    public async Task Handle_ShouldThrow_WhenProductTypeNameDoesNotExist()
+    {
+        // arrange
+        var orderId = Guid.NewGuid();
+        const string productName = "not_existing";
+
+        var orderRepository = new Mock<IOrderRepository>();
+        orderRepository
+            .Setup(r => r.FindAsync(orderId, It.IsAny<CancellationToken>()))
+            .ReturnsAsync((Order?)null);
+
+        var productTypeRepository = new Mock<IProductTypeRepository>();
+        productTypeRepository
+            .Setup(r => r.FindByNameAsync(productName, It.IsAny<CancellationToken>()))
+            .ReturnsAsync((ProductType?)null);
+        
+        var request = new SubmitOrderRequest
+        {
+            OrderId = orderId,
+            Products = new List<ProductRequest>
+            {
+                new()
+                {
+                    ProductType = productName,
+                    Quantity = 2
+                }
+            }
+        };
+
+        var handler = new SubmitOrderHandler(orderRepository.Object, productTypeRepository.Object);
+
+        // act
+        var action = async () => await handler.Handle(request, default);
+
+        // assert
+        await Assert.ThrowsAsync<InvalidProductTypeException>(action);
+    }
+    
+    [Fact]
     public async Task Handle_ShouldThrow_WhenOrderIdAlreadyExists()
     {
         // arrange
