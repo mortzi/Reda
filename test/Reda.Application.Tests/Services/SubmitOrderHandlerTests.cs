@@ -56,7 +56,7 @@ public class SubmitOrderHandlerTests
         Assert.Equal(expected.RequiredBinWidth, actual.RequiredBinWidth);
         
         // make sure new Order is persisted
-        orderRepository.Verify(r => r.Add(It.Is<Order>(o => o.Id.Value == orderId)));
+        orderRepository.Verify(r => r.AddAsync(It.Is<Order>(o => o.Id.Value == orderId), It.IsAny<CancellationToken>()));
         orderRepository.Verify(r => r.SaveAsync(It.IsAny<CancellationToken>()));
     }
     

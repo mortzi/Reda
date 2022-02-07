@@ -34,7 +34,7 @@ public class SubmitOrderHandler : IRequestHandler<SubmitOrderRequest, SubmitOrde
 
         var order = new Order(orderId, products);
 
-        _orderRepository.Add(order);
+        await _orderRepository.AddAsync(order, cancellationToken);
         await _orderRepository.SaveAsync(cancellationToken);
 
         return new SubmitOrderResponse(order.Id, order.RequiredBinWidth);

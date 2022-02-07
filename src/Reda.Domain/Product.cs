@@ -8,7 +8,7 @@ public class Product
     /// <summary>
     /// Product unique Id
     /// </summary>
-    public ProductId ProductId { get; }
+    public ProductId Id { get; }
     
     /// <summary>
     /// Quantity of the Product
@@ -25,9 +25,9 @@ public class Product
     {
     }
     
-    public Product(ProductId productId, ProductType productType, Quantity quantity)
+    public Product(ProductId id, ProductType productType, Quantity quantity)
     {
-        ProductId = productId;
+        Id = id;
         Type = productType;
         Quantity = quantity;
     }

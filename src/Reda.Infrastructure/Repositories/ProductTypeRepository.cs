@@ -1,19 +1,28 @@
+using Microsoft.EntityFrameworkCore;
+
 using Reda.Domain;
+using Reda.Infrastructure.Repositories.Models;
 
 namespace Reda.Infrastructure.Repositories;
 
 public class ProductTypeRepository : IProductTypeRepository
 {
-    private static readonly List<ProductType> ProductTypes = new List<ProductType>
+    private readonly OrderingDbContext _dbContext;
+
+    public ProductTypeRepository(OrderingDbContext dbContext)
     {
-        new("mug", 94, 4),
-        new("calendar", 14, 1),
-        new("canvas", 20, 1),
-        new("cards", 4.7, 1)
-    };
+        _dbContext = dbContext;
+    }
     
     public async Task<ProductType?> FindByNameAsync(string productName, CancellationToken cancellationToken)
     {
-        return ProductTypes.FirstOrDefault(p => p.Name == productName);
+        var productTypeEntity = await _dbContext
+            .Set<ProductTypeEntity>()
+            .FirstOrDefaultAsync(p => p.Name == productName, cancellationToken);
+
+        if (productTypeEntity is null)
+            return null;
+
+        return new ProductType(productTypeEntity.Name, productTypeEntity.Width, productTypeEntity.StackLimit);
     }
 }
