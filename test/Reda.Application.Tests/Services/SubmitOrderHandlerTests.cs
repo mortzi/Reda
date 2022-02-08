@@ -28,19 +28,10 @@ public class SubmitOrderHandlerTests
         productTypeRepository
             .Setup(r => r.FindByNameAsync(productName, It.IsAny<CancellationToken>()))
             .ReturnsAsync(productType);
-        
-        var request = new SubmitOrderRequest
-        {
-            OrderId = orderId,
-            Products = new List<ProductRequest>
-            {
-                new()
-                {
-                    ProductType = productName,
-                    Quantity = 2
-                }
-            }
-        };
+
+        var request = new SubmitOrderRequest(
+            orderId,
+            new List<ProductRequest> {new(productName, 2)});
 
         var expected = new SubmitOrderResponse(
             orderId,
@@ -76,19 +67,10 @@ public class SubmitOrderHandlerTests
         productTypeRepository
             .Setup(r => r.FindByNameAsync(productName, It.IsAny<CancellationToken>()))
             .ReturnsAsync((ProductType?)null);
-        
-        var request = new SubmitOrderRequest
-        {
-            OrderId = orderId,
-            Products = new List<ProductRequest>
-            {
-                new()
-                {
-                    ProductType = productName,
-                    Quantity = 2
-                }
-            }
-        };
+
+        var request = new SubmitOrderRequest(
+            orderId,
+            new List<ProductRequest> {new(productName, 2)});
 
         var handler = new SubmitOrderHandler(orderRepository.Object, productTypeRepository.Object);
 
@@ -111,7 +93,7 @@ public class SubmitOrderHandlerTests
             .ReturnsAsync(new Order(orderId, Enumerable.Empty<Product>()));
         var productTypeRepository = new Mock<IProductTypeRepository>();
         
-        var request = new SubmitOrderRequest {OrderId = orderId};
+        var request = new SubmitOrderRequest(orderId, new List<ProductRequest>());
 
         var handler = new SubmitOrderHandler(orderRepository.Object, productTypeRepository.Object);
 

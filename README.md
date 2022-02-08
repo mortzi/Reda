@@ -6,7 +6,7 @@ A try to domain driven approach.
 
 ## How to run
 
-- Run a SqlServer docker container
+- Run SqlServer
 
     ```text
     docker run -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=<YourStrong@Passw0rd>" `

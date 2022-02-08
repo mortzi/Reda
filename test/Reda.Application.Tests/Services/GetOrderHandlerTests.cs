@@ -26,7 +26,7 @@ public class GetOrderHandlerTests
             .Setup(r => r.FindAsync(orderId, It.IsAny<CancellationToken>()))
             .ReturnsAsync(order);
         
-        var request = new GetOrderRequest {OrderId = orderId};
+        var request = new GetOrderRequest(orderId);
 
         var expected = new GetOrderResponse(
             orderId,
@@ -59,7 +59,7 @@ public class GetOrderHandlerTests
             .Setup(r => r.FindAsync(orderId, It.IsAny<CancellationToken>()))
             .ReturnsAsync((Order?)null);
         
-        var request = new GetOrderRequest {OrderId = orderId};
+        var request = new GetOrderRequest(orderId);
 
         var handler = new GetOrderHandler(orderRepository.Object);
 

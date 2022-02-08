@@ -2,7 +2,4 @@ using MediatR;
 
 namespace Reda.Application.Models;
 
-public record GetOrderRequest : IRequest<GetOrderResponse>
-{
-    public Guid OrderId { get; set; } = default!;
-}
+public record GetOrderRequest(Guid OrderId) : IRequest<GetOrderResponse>;
