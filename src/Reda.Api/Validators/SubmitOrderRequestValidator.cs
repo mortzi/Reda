@@ -6,10 +6,10 @@ namespace Reda.Api.Validators;
 
 public class SubmitOrderRequestValidator : AbstractValidator<SubmitOrderRequest>
 {
-    public SubmitOrderRequestValidator()
+    public SubmitOrderRequestValidator(IValidator<ProductRequest> productValidator)
     {
-        RuleFor(r => r.OrderId).NotEmpty();
+        RuleFor(r => r.OrderId).NotEmpty().Must(id => id > 0);
         RuleFor(r => r.Products).NotEmpty();
-        RuleForEach(r => r.Products).NotEmpty().InjectValidator();
+        RuleForEach(r => r.Products).NotEmpty().SetValidator(productValidator);
     }
 }

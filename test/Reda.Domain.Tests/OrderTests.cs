@@ -8,13 +8,13 @@ public class OrderTests
     public void Constructor_Should_SetOrderId()
     {
         // arrange
-        var orderId = new OrderId(Guid.NewGuid());
+        const long orderId = 2;
 
         // act
         var order = new Order(orderId, new List<Product>());
 
         // assert
-        Assert.Equal(orderId, order.Id);
+        Assert.Equal(orderId, order.Id.Value);
         Assert.Empty(order.Products);
     }
     
@@ -22,7 +22,7 @@ public class OrderTests
     public void Constructor_Should_SetProducts()
     {
         // arrange
-        var orderId = new OrderId(Guid.NewGuid());
+        const long orderId = 2;
         
         var products = new List<Product>
         {
@@ -52,7 +52,7 @@ public class OrderTests
     public void Constructor_ShouldNot_ChangeProductGrouping()
     {
         // arrange
-        var orderId = new OrderId(Guid.NewGuid());
+        const long orderId = 2;
         
         var products = new List<Product>
         {
@@ -95,7 +95,7 @@ public class OrderTests
         };
         
         Width expectedWidth = 2 * PackageTestData.CardsType.Width + 1 * PackageTestData.MugType.Width;
-        var orderId = new OrderId(Guid.NewGuid());
+        const long orderId = 2;
 
         // act
         var order = new Order(orderId, products);

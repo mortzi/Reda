@@ -11,11 +11,11 @@ public class PackageTestData : TheoryData<IEnumerable<Product>, Width>
 // 1 set of greeting cards — 4.7 mm
 // 1 mug — 94 mm
 
-    public static readonly ProductType PhotoBookType = new("photoBook", Width: 19, StackLimit: 1);
-    public static readonly ProductType CalendarType = new("calendar", Width: 10, StackLimit: 1);
-    public static readonly ProductType CanvasType = new("canvas", Width: 16, StackLimit: 1);
-    public static readonly ProductType CardsType = new("cards", Width: 4.7, StackLimit: 1);
-    public static readonly ProductType MugType = new("mug", Width: 94, StackLimit: 4);
+    public static readonly ProductType PhotoBookType = new(1, "photoBook", Width: 19, StackLimit: 1);
+    public static readonly ProductType CalendarType = new(2, "calendar", Width: 10, StackLimit: 1);
+    public static readonly ProductType CanvasType = new(3, "canvas", Width: 16, StackLimit: 1);
+    public static readonly ProductType CardsType = new(4, "cards", Width: 4.7, StackLimit: 1);
+    public static readonly ProductType MugType = new(5, "mug", Width: 94, StackLimit: 4);
 
     public PackageTestData()
     {

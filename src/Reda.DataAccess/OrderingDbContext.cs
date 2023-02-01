@@ -1,15 +1,14 @@
 using Microsoft.EntityFrameworkCore;
 
-using Reda.Infrastructure.Repositories.Models;
+using Reda.DataAccess.Models;
 
-namespace Reda.Infrastructure.Repositories;
+namespace Reda.DataAccess;
 
 public class OrderingDbContext : DbContext
 {
     public OrderingDbContext(DbContextOptions<OrderingDbContext> options)
         : base(options)
     {
-        
     }
     
     protected override void OnModelCreating(ModelBuilder modelBuilder)

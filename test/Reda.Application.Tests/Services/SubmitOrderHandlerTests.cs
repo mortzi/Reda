@@ -1,5 +1,8 @@
+using Microsoft.Extensions.Caching.Memory;
+
 using Moq;
 
+using Reda.Application.Cache;
 using Reda.Application.Exceptions;
 using Reda.Application.Models;
 using Reda.Application.Services;
@@ -15,7 +18,7 @@ public class SubmitOrderHandlerTests
     public async Task Handle_Should_SubmitOrder()
     {
         // arrange
-        var orderId = Guid.NewGuid();
+        const long orderId = 2;
         const string productName = "candle";
 
         var orderRepository = new Mock<IOrderRepository>();
@@ -23,7 +26,7 @@ public class SubmitOrderHandlerTests
             .Setup(r => r.FindAsync(orderId, It.IsAny<CancellationToken>()))
             .ReturnsAsync((Order?)null);
 
-        var productType = new ProductType(productName, 1.2, 1);
+        var productType = new ProductType(7, productName, 1.2, 1);
         var productTypeRepository = new Mock<IProductTypeRepository>();
         productTypeRepository
             .Setup(r => r.FindByNameAsync(productName, It.IsAny<CancellationToken>()))
@@ -37,7 +40,11 @@ public class SubmitOrderHandlerTests
             orderId,
             1.2 * 2);
 
-        var handler = new SubmitOrderHandler(orderRepository.Object, productTypeRepository.Object);
+        var handler = new SubmitOrderHandler(
+            orderRepository.Object,
+            productTypeRepository.Object,
+            MockMemoryCache,
+            MockCacheOptions);
 
         // act
         var actual = await handler.Handle(request, default);
@@ -55,7 +62,7 @@ public class SubmitOrderHandlerTests
     public async Task Handle_ShouldThrow_WhenProductTypeNameDoesNotExist()
     {
         // arrange
-        var orderId = Guid.NewGuid();
+        const long orderId = 2;
         const string productName = "not_existing";
 
         var orderRepository = new Mock<IOrderRepository>();
@@ -72,7 +79,11 @@ public class SubmitOrderHandlerTests
             orderId,
             new List<ProductRequest> {new(productName, 2)});
 
-        var handler = new SubmitOrderHandler(orderRepository.Object, productTypeRepository.Object);
+        var handler = new SubmitOrderHandler(
+            orderRepository.Object,
+            productTypeRepository.Object,
+            MockMemoryCache,
+            MockCacheOptions);
 
         // act
         var action = async () => await handler.Handle(request, default);
@@ -85,7 +96,7 @@ public class SubmitOrderHandlerTests
     public async Task Handle_ShouldThrow_WhenOrderIdAlreadyExists()
     {
         // arrange
-        var orderId = Guid.NewGuid();
+        const long orderId = 2;
 
         var orderRepository = new Mock<IOrderRepository>();
         orderRepository
@@ -95,7 +106,11 @@ public class SubmitOrderHandlerTests
         
         var request = new SubmitOrderRequest(orderId, new List<ProductRequest>());
 
-        var handler = new SubmitOrderHandler(orderRepository.Object, productTypeRepository.Object);
+        var handler = new SubmitOrderHandler(
+            orderRepository.Object,
+            productTypeRepository.Object,
+            MockMemoryCache,
+            MockCacheOptions);
 
         // act
         var action = async () => await handler.Handle(request, default);
@@ -103,4 +118,8 @@ public class SubmitOrderHandlerTests
         // assert
         await Assert.ThrowsAsync<OrderAlreadyExistsException>(action);
     }
+
+    private static IMemoryCache MockMemoryCache => new MemoryCache(new MemoryCacheOptions());
+    
+    private static CacheOptions MockCacheOptions => new() { DefaultExpirationTimeSpan = TimeSpan.FromSeconds(2) };
 }

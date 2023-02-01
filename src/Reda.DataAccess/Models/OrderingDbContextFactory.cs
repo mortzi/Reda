@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 
-namespace Reda.Infrastructure.Repositories.Models;
+namespace Reda.DataAccess.Models;
 
 public class OrderingDbContextFactory : IDesignTimeDbContextFactory<OrderingDbContext>
 {

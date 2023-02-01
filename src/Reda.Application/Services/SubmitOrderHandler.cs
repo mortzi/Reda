@@ -2,6 +2,10 @@ using System.Runtime.CompilerServices;
 
 using MediatR;
 
+using Microsoft.Extensions.Caching.Memory;
+using Microsoft.Extensions.Options;
+
+using Reda.Application.Cache;
 using Reda.Application.Exceptions;
 using Reda.Application.Models;
 using Reda.Domain;
@@ -15,13 +19,19 @@ public class SubmitOrderHandler : IRequestHandler<SubmitOrderRequest, SubmitOrde
 {
     private readonly IOrderRepository _orderRepository;
     private readonly IProductTypeRepository _productTypeRepository;
+    private readonly IMemoryCache _productTypeCache;
+    private readonly CacheOptions _cacheOptions;
 
     public SubmitOrderHandler(
         IOrderRepository orderRepository,
-        IProductTypeRepository productTypeRepository)
+        IProductTypeRepository productTypeRepository,
+        IMemoryCache productTypeCache,
+        IOptions<CacheOptions> cacheOptions)
     {
         _orderRepository = orderRepository;
         _productTypeRepository = productTypeRepository;
+        _productTypeCache = productTypeCache;
+        _cacheOptions = cacheOptions.Value;
     }
     
     public async Task<SubmitOrderResponse> Handle(SubmitOrderRequest request, CancellationToken cancellationToken)
@@ -30,7 +40,7 @@ public class SubmitOrderHandler : IRequestHandler<SubmitOrderRequest, SubmitOrde
         
         await ThrowIfOrderAlreadyExists(orderId, cancellationToken);
 
-        var products = await MapProductsAsync(request.Products, cancellationToken).ToListAsync(cancellationToken);
+        var products = await CreateProducts(request.Products, cancellationToken).ToListAsync(cancellationToken);
 
         var order = new Order(orderId, products);
 
@@ -40,7 +50,7 @@ public class SubmitOrderHandler : IRequestHandler<SubmitOrderRequest, SubmitOrde
         return new SubmitOrderResponse(order.Id, order.RequiredBinWidth);
     }
 
-    private async IAsyncEnumerable<Product> MapProductsAsync(
+    private async IAsyncEnumerable<Product> CreateProducts(
         IEnumerable<ProductRequest> productRequests,
         [EnumeratorCancellation] CancellationToken cancellationToken)
     {
@@ -53,8 +63,15 @@ public class SubmitOrderHandler : IRequestHandler<SubmitOrderRequest, SubmitOrde
 
     private async Task<ProductType> GetProductType(string productName, CancellationToken cancellationToken)
     {
-        return await _productTypeRepository.FindByNameAsync(productName, cancellationToken)
-               ?? throw new InvalidProductTypeException(productName);
+        var productType = await _productTypeCache.GetOrCreateAsync(
+            productName,
+            async entry =>
+            {
+                entry.AbsoluteExpirationRelativeToNow = _cacheOptions.DefaultExpirationTimeSpan;
+                return await _productTypeRepository.FindByNameAsync(productName, cancellationToken);
+            });
+        
+        return productType ?? throw new InvalidProductTypeException(productName);
     }
 
     private async Task ThrowIfOrderAlreadyExists(OrderId orderId, CancellationToken cancellationToken)

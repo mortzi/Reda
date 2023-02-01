@@ -11,13 +11,13 @@ A try to domain driven approach.
     ```text
     docker run -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=<YourStrong@Passw0rd>" `
     -p 1433:1433 --name sql-dev -h sql-dev `
-    -d mcr.microsoft.com/mssql/server:2019-latest
+    -d mcr.microsoft.com/mssql/server:2022-latest
     ```
 
 - Apply database migrations
 
     ```ps1
-    dotnet ef database update --project .\src\Reda.Infrastructure\ -- "Server=127.0.0.1,1433;Database=Reda;User Id=SA;Password=<YourStrong@Passw0rd>"
+    dotnet ef database update --project .\src\Reda.DataAccess\ -- "Server=127.0.0.1,1433;Database=Reda;User Id=SA;Password=<YourStrong@Passw0rd>;Trust Server Certificate=true"
     ```
 
 - Run the API project
@@ -30,14 +30,13 @@ A try to domain driven approach.
 
 ## Technologies
 
-- ASP .Net 6
+- ASP .NET 7
 - Sql Server
 
 ## Libraries
 
 - MediatR
 - EntityFramework
-- AutoMapper
 - FluentValidation
 - xunit
 - Moq

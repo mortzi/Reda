@@ -1,3 +1,3 @@
 namespace Reda.Application.Models;
 
-public record ProductResponse(Guid ProductId, string ProductType, int Quantity);
+public record ProductResponse(string ProductType, int Quantity);

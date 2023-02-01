@@ -17,7 +17,20 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reda.Application.Tests", "t
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reda.Api", "src\Reda.Api\Reda.Api.csproj", "{E912FECF-0567-46D4-AF24-6C3479E0CC5E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reda.Infrastructure", "src\Reda.Infrastructure\Reda.Infrastructure.csproj", "{B5E34F4E-88E1-424C-8CFE-E2499E1D2C03}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reda.DataAccess", "src\Reda.DataAccess\Reda.DataAccess.csproj", "{B5E34F4E-88E1-424C-8CFE-E2499E1D2C03}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "solution-items", "solution-items", "{DCCB1012-E6FA-44DE-A3E8-59153C93D6F4}"
+	ProjectSection(SolutionItems) = preProject
+		.config\dotnet-tools.json = .config\dotnet-tools.json
+		.editorconfig = .editorconfig
+		.gitignore = .gitignore
+		Directory.Build.props = Directory.Build.props
+		Directory.Build.targets = Directory.Build.targets
+		global.json = global.json
+		nuget.config = nuget.config
+		README.md = README.md
+		src\Reda.Api\Dockerfile = src\Reda.Api\Dockerfile
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -5,10 +5,10 @@ namespace Reda.Domain.Tests;
 public class OrderIdTests
 {
     [Fact]
-    public void Constructor_ShouldThrow_WhenValueIsEmptyGuid()
+    public void Constructor_ShouldThrow_WhenValueIsZero()
     {
         // arrange & act
-        var action = () => new OrderId(Guid.Empty);
+        var action = () => new OrderId(0);
 
         // assert
         Assert.Throws<ArgumentException>(action);
@@ -18,7 +18,7 @@ public class OrderIdTests
     public void Constructor_Should_SetValue()
     {
         // arrange
-        var idValue = Guid.NewGuid();
+        const long idValue = 2;
 
         // act
         var orderId = new OrderId(idValue);

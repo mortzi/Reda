@@ -20,15 +20,15 @@ public class Product
     /// </summary>
     public ProductType Type { get; }
 
-    public Product(ProductType productType, Quantity quantity)
-        : this(new ProductId(Guid.NewGuid()), productType, quantity)
-    {
-    }
-    
     public Product(ProductId id, ProductType productType, Quantity quantity)
     {
         Id = id;
         Type = productType;
         Quantity = quantity;
+    }
+
+    public Product(ProductType productType, Quantity quantity)
+        : this(new(), productType, quantity)
+    {
     }
 }

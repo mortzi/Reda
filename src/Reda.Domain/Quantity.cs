@@ -9,7 +9,7 @@ public record Quantity
 
     public Quantity(int value)
     {
-        Value = value < 0 ? throw new ArgumentException(nameof(value)) : value;
+        Value = value < 0 ? throw new ArgumentException("Quantity cannot be less than 0", nameof(value)) : value;
     }
 
     public static implicit operator int(Quantity quantity) => quantity.Value;

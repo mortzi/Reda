@@ -2,10 +2,10 @@ using Reda.Domain;
 
 namespace Reda.Application.Exceptions;
 
-public class OrderAlreadyExistsException : Exception
+public class OrderAlreadyExistsException : ApplicationException
 {
     public OrderAlreadyExistsException(OrderId orderId)
-        : base($"{nameof(OrderId)}=[{orderId}] is invalid.")
+        : base($"{nameof(OrderId)}=[{orderId}] already exists.")
     {
     }
 }

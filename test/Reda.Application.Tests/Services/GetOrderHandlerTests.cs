@@ -15,11 +15,11 @@ public class GetOrderHandlerTests
     public async Task Handle_Should_GetOrderByItsId()
     {
         // arrange
-        var orderId = Guid.NewGuid();
+        const long orderId = 3;
 
         var order = new Order(
             orderId,
-            new List<Product> {new(new ProductType("candle", 1.2, 1), 2)});
+            new List<Product> {new(new ProductType(3, "candle", 1.2, 1), 2)});
         
         var orderRepository = new Mock<IOrderRepository>();
         orderRepository
@@ -30,7 +30,7 @@ public class GetOrderHandlerTests
 
         var expected = new GetOrderResponse(
             orderId,
-            new List<ProductResponse> {new(Guid.NewGuid(), "candle", 2)},
+            new List<ProductResponse> {new("candle", 2)},
             1.2 * 2);
 
         var handler = new GetOrderHandler(orderRepository.Object);
@@ -52,7 +52,8 @@ public class GetOrderHandlerTests
     public async Task Handle_ShouldThrow_WhenOrderIdDoesNotExist()
     {
         // arrange
-        var orderId = Guid.NewGuid();
+        const long orderId = 3;
+
 
         var orderRepository = new Mock<IOrderRepository>();
         orderRepository

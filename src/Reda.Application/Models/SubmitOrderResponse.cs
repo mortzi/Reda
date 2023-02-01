@@ -1,3 +1,3 @@
 namespace Reda.Application.Models;
 
-public record SubmitOrderResponse(Guid OrderId, double RequiredBinWidth);
+public record SubmitOrderResponse(long OrderId, double RequiredBinWidth);

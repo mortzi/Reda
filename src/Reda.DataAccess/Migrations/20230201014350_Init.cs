@@ -1,19 +1,22 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace Reda.Infrastructure.Migrations
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
+namespace Reda.DataAccess.Migrations
 {
-    public partial class InitialCreate : Migration
+    /// <inheritdoc />
+    public partial class Init : Migration
     {
+        /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
                 name: "Orders",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", fixedLength: true, nullable: false)
+                    Id = table.Column<long>(type: "bigint", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -24,7 +27,8 @@ namespace Reda.Infrastructure.Migrations
                 name: "ProductTypes",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", fixedLength: true, nullable: false),
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     StackLimit = table.Column<int>(type: "int", nullable: false),
                     Width = table.Column<double>(type: "float", nullable: false)
@@ -38,10 +42,11 @@ namespace Reda.Infrastructure.Migrations
                 name: "Products",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", fixedLength: true, nullable: false),
-                    ProductTypeId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    OrderId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Quantity = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Quantity = table.Column<int>(type: "int", nullable: false),
+                    OrderId = table.Column<long>(type: "bigint", nullable: false),
+                    ProductTypeId = table.Column<long>(type: "bigint", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -65,11 +70,11 @@ namespace Reda.Infrastructure.Migrations
                 columns: new[] { "Id", "Name", "StackLimit", "Width" },
                 values: new object[,]
                 {
-                    { new Guid("4d6f3b85-cf39-4aae-8a3d-3b0337e37fa9"), "mug", 4, 94.0 },
-                    { new Guid("557ade17-e9a9-48e8-b5f9-7010c7db6514"), "cards", 1, 4.7000000000000002 },
-                    { new Guid("a2b6fb96-7e3c-44e6-905c-72ce8bebc71c"), "calendar", 1, 10.0 },
-                    { new Guid("a9bf52be-3bf1-46f2-b0bb-a8f8ff02090e"), "canvas", 1, 16.0 },
-                    { new Guid("cbffff55-25c1-4e39-abac-20dfda442c27"), "photoBook", 1, 19.0 }
+                    { 1L, "photoBook", 1, 19.0 },
+                    { 2L, "calendar", 1, 10.0 },
+                    { 3L, "canvas", 1, 16.0 },
+                    { 4L, "cards", 1, 4.7000000000000002 },
+                    { 5L, "mug", 4, 94.0 }
                 });
 
             migrationBuilder.CreateIndex(
@@ -89,6 +94,7 @@ namespace Reda.Infrastructure.Migrations
                 unique: true);
         }
 
+        /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(

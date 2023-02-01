@@ -5,16 +5,16 @@ namespace Reda.Domain;
 /// </summary>
 public record OrderId
 {
-    public Guid Value { get; }
+    public long Value { get; }
 
-    public OrderId(Guid value)
+    public OrderId(long value)
     {
-        if (value == default)
-            throw new ArgumentException($"{nameof(value)} cannot be Guid.Empty", nameof(value));
+        if (value < 1)
+            throw new ArgumentException($"{nameof(value)} must be non-negative", nameof(value));
 
         Value = value;
     }
 
-    public static implicit operator Guid(OrderId orderId) => orderId.Value;
-    public static implicit operator OrderId(Guid value) => new(value);
+    public static implicit operator long(OrderId orderId) => orderId.Value;
+    public static implicit operator OrderId(long value) => new(value);
 }

@@ -2,4 +2,4 @@ using MediatR;
 
 namespace Reda.Application.Models;
 
-public record SubmitOrderRequest(Guid OrderId, List<ProductRequest> Products) : IRequest<SubmitOrderResponse>;
+public record SubmitOrderRequest(long OrderId, List<ProductRequest> Products) : IRequest<SubmitOrderResponse>;
