@@ -3,6 +3,7 @@ using FluentValidation;
 using MediatR;
 
 using Reda.Api;
+using Reda.Api.Behaviors;
 using Reda.Api.Validators;
 using Reda.Application.Cache;
 using Reda.Application.Services;
@@ -18,6 +19,8 @@ builder.Services.Configure<CacheOptions>(builder.Configuration.GetSection(nameof
 builder.Services.AddMemoryCache();
 
 builder.Services.AddMediatR(typeof(SubmitOrderHandler).Assembly);
+builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 

@@ -1,6 +1,3 @@
-using FluentValidation;
-using FluentValidation.AspNetCore;
-
 using MediatR;
 
 using Microsoft.AspNetCore.Mvc;
@@ -14,43 +11,24 @@ namespace Reda.Api.Controllers;
 public class OrdersController : ControllerBase
 {
     private readonly IMediator _mediator;
-    private readonly IValidator<SubmitOrderRequest> _submitOrderValidator;
-    private readonly IValidator<GetOrderRequest> _getOrderValidator;
 
-    public OrdersController(
-        IMediator mediator,
-        IValidator<SubmitOrderRequest> submitOrderValidator,
-        IValidator<GetOrderRequest> getOrderValidator)
+    public OrdersController(IMediator mediator)
     {
         _mediator = mediator;
-        _submitOrderValidator = submitOrderValidator;
-        _getOrderValidator = getOrderValidator;
     }
 
     [HttpPost(Name = "SubmitOrder")]
     public async Task<ActionResult<SubmitOrderResponse>> Submit([FromBody] SubmitOrderRequest request)
     {
-        if (await _submitOrderValidator.ValidateAsync(request) is { IsValid: false } validationResult)
-        {
-            validationResult.AddToModelState(ModelState);
-            return ValidationProblem(ModelState);
-        }
-        
         var result = await _mediator.Send(request);
 
         return Ok(result);
     }
 
-    [HttpGet(Name = "GetOrder")]
-    public async Task<ActionResult<GetOrderResponse>> Get([FromQuery] GetOrderRequest request)
+    [HttpGet("{orderId:int}", Name = "GetOrder")]
+    public async Task<ActionResult<GetOrderResponse>> Get(int orderId)
     {
-        if (await _getOrderValidator.ValidateAsync(request) is { IsValid: false } validationResult)
-        {
-            validationResult.AddToModelState(ModelState);
-            return ValidationProblem(ModelState);
-        }
-        
-        var result = await _mediator.Send(request);
+        var result = await _mediator.Send(new GetOrderRequest(orderId));
 
         return Ok(result);
     }

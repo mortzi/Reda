@@ -1,5 +1,7 @@
 using System.Net;
 
+using FluentValidation;
+
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http.Features;
 
@@ -20,9 +22,12 @@ public static class ExceptionHandlingWebApplicationExtensions
                 var error = exceptionHandlerPathFeature.Error;
                 var apiError = error switch
                 {
-                    OrderNotFoundException => new ApiError($"Not found {error.Message}", HttpStatusCode.NotFound),
-                    OrderAlreadyExistsException or InvalidProductTypeException => 
+                    OrderNotFoundException => 
+                        new ApiError($"Not found {error.Message}", HttpStatusCode.NotFound),
+                    OrderAlreadyExistsException or InvalidProductTypeException =>
                         new ApiError($"Bad request {error.Message}", HttpStatusCode.BadRequest),
+                    ValidationException validationException => 
+                        new ApiError(validationException.Message, HttpStatusCode.BadRequest),
                     _ => new ApiError("Internal server error", HttpStatusCode.InternalServerError)
                 };
 
